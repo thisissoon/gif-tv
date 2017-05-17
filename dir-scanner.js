@@ -9,7 +9,7 @@ import fs from 'fs';
 
 function getFilenames() {
   return new Promise((resolve, reject) => {
-    fs.readdir('./PARTY_GIFS/', (err, files) => {
+    fs.readdir('./src/assets/PARTY_GIFS/', (err, files) => {
       if (err) reject(err);
       resolve(files);
     });
