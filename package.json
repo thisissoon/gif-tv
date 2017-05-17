@@ -5,6 +5,7 @@
   "main": "server.js",
   "scripts": {
     "start": "nodemon lib/server.js --exec babel-node",
+    "gif-scan": "nodemon dir-scanner --exec babel-node",
     "build": "babel lib -d dist",
     "serve": "node dist/server.js",
     "test": "mocha --compilers js:babel-register"
