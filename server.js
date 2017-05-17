@@ -1,9 +1,9 @@
 import express from 'express';
 const app = express();
 
-app.use('/', express.static('PARTY_GIFS'));
+app.use('/', express.static('public'));
 
-app.get('/*', (req, res) => {
+app.get('/', (req, res) => {
   res.sendFile(`${__dirname}/public/html/index.html`);
 });
 

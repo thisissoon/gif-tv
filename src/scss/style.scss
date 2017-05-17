@@ -1,7 +1,9 @@
-$badass: #bada55;
+body {
+    margin: 0;
+}
 
-.hello {
-  .hi {
-    color: $badass;
-  }
+.gif {
+    width: 100%;
+    height: 100vh;
+    background-size: cover;
 }
