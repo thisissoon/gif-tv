@@ -1,7 +1,30 @@
-console.log($('.gif'));
+$(document).ready( () => {
+  console.log('DOM ready');
+  
+  const gifs = [
+    '2XN.gif',
+    '6N2Fa.gif',
+    '80dancepaty.gif'
+  ];
 
-var hello = () => {
-  console.log('hi');
-};
+  const gifDiv = $('.gif');
 
-hello();
+  gifDiv.css('background-image', `url(./assets/PARTY_GIFS/${gifs[1]})`);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+});
