@@ -1,27 +1,28 @@
 const fs = require('fs');
 
-function getFilenames() {
+function getFilenames(directoryPath) {
   return new Promise((resolve, reject) => {
-    fs.readdir('./src/assets/PARTY_GIFS/', (err, files) => {
+    fs.readdir(directoryPath, (err, filesnames) => {
       if (err) reject(err);
-      resolve(files);
+      resolve(filesnames);
     });
   });
 }
 
-function handleFilenames(filenameArray) {
-  return filterGifs(filenameArray);
+function filterFilenames(filenames) {
+  return new Promise((resolve, reject) => {
+    const gifFilenames = filenames.filter((filename) => filename.endsWith('.gif'));
+    if (gifFilenames.length === 0) reject('no gifs in directory');
+    resolve(gifFilenames);
+  });
 }
 
-function filterGifs(filenameArray){
-  const gifsArray = filenameArray.filter((filename) => filename.endsWith('.gif'));
-  return gifsArray;
+function getGifFilenames(directoryPath){
+  return getFilenames(directoryPath)
+    .then(filenames => filterFilenames(filenames));
 }
-
-getFilenames()
-  .then(handleFilenames);
 
 module.exports = {
-  getFilenames: getFilenames
+  getGifFilenames: getGifFilenames
 };
 
