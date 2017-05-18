@@ -2,7 +2,7 @@ $(document).ready( () => {
 
   const gif = document.getElementsByClassName('gif')[0];
 
-  const $gifDiv = $('.gif');
+  const $gifImg = $('.gif-container__gif-image');
 
   let gifFilenames = [];
 
@@ -10,7 +10,7 @@ $(document).ready( () => {
 
   function gifLoop() {           
     setTimeout(() => {    
-      updateGif($gifDiv, gifFilenames[index]);
+      updateGif($gifImg, gifFilenames[index]);
       index ++;          
       if (index < gifFilenames.length) {            
         gifLoop();           
@@ -34,9 +34,9 @@ $(document).ready( () => {
       gifLoop(); 
     });
 
-  $gifDiv.on('click', (e) => {
-    gif.webkitRequestFullscreen();
-  });
+  // $gifImg.on('click', (e) => {
+  //   gif.webkitRequestFullscreen();
+  // });
 
 
 });
