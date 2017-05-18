@@ -1,4 +1,4 @@
-import fs from 'fs';
+const fs = require('fs');
 
 function getFilenames() {
   return new Promise((resolve, reject) => {
@@ -10,14 +10,18 @@ function getFilenames() {
 }
 
 function handleFilenames(filenameArray) {
-  const gifsArray = getGifs(filenameArray);
-  console.log(gifsArray);
+  return filterGifs(filenameArray);
 }
 
-function getGifs(filenameArray){
+function filterGifs(filenameArray){
   const gifsArray = filenameArray.filter((filename) => filename.endsWith('.gif'));
   return gifsArray;
 }
 
 getFilenames()
   .then(handleFilenames);
+
+module.exports = {
+  getFilenames: getFilenames
+};
+
