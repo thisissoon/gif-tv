@@ -1,4 +1,9 @@
 $(document).ready( () => {
+
+  const gif = document.getElementsByClassName('gif')[0];
+
+  const $gifDiv = $('.gif');
+
   
   const gifs = [
     '2XN.gif',
@@ -6,7 +11,6 @@ $(document).ready( () => {
     '80dancepaty.gif'
   ];
 
-  const $gifDiv = $('.gif');
 
   let index = 0;                     
 
@@ -28,6 +32,10 @@ $(document).ready( () => {
   function updateGif($element, gifFilename) {
     $element.css('background-image', `url(./assets/PARTY_GIFS/${gifFilename})`);
   }
+
+  $gifDiv.on('click', (e) => {
+    gif.webkitRequestFullscreen();
+  });
 
 
 });
