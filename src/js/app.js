@@ -18,7 +18,7 @@ $(document).ready( () => {
         index = 0;
         gifLoop();
       }
-    }, 3000);
+    }, 4200);
   }
 
   function updateGif($element, gifFilename) {
