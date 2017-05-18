@@ -17,7 +17,7 @@
     "build:assets": "cp -R src/assets/ public/assets/",
     "watch:assets": "onchange 'src/assets/**/*.*' -v -- npm run build:assets",
     "build": "npm run build:html && npm run build:css && npm run build:js && npm run build:assets",
-    "build:watch": "parallelshell 'npm run watch:html' 'npm run watch:css' 'npm run watch:js' 'npm run watch:assets'",
+    "watch": "parallelshell 'npm run watch:html' 'npm run watch:css' 'npm run watch:js' 'npm run watch:assets'",
     "clean": "rm -r public/*"
   },
   "author": "",
