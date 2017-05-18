@@ -1,4 +1,5 @@
 const fs = require('fs');
+const gifyParse = require('gify-parse');
 
 function getFilenames(directoryPath) {
   return new Promise((resolve, reject) => {
@@ -17,9 +18,26 @@ function filterFilenames(filenames) {
   });
 }
 
+function addGifDurations(directoryPath, filenames) {
+  return new Promise((resolve, reject) => {
+    const gifInfoArray = filenames.map((filename) => {
+      const buffer = fs.readFileSync(`${directoryPath}${filename}`);
+      const gifInfo = gifyParse.getInfo(buffer);
+      const gifDuration = gifInfo.durationChrome;
+      return {
+        filename,
+        gifDuration
+      };
+    });
+    if (!gifInfoArray) reject('something went wrong');
+    resolve(gifInfoArray);
+  });
+}
+
 function getGifFilenames(directoryPath){
   return getFilenames(directoryPath)
-    .then(filenames => filterFilenames(filenames));
+    .then(filenames => filterFilenames(filenames))
+    .then(gifFilenames => addGifDurations(directoryPath, gifFilenames));
 }
 
 module.exports = {
