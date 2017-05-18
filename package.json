@@ -4,15 +4,27 @@
   "description": "",
   "main": "server.js",
   "scripts": {
-    "start": "nodemon lib/server.js --exec babel-node",
-    "build": "babel lib -d dist",
+    "start": "nodemon server.js -x 'babel-node'",
+    "gif-scan": "nodemon dir-scanner -x 'babel-node'",
     "serve": "node dist/server.js",
-    "test": "mocha --compilers js:babel-register"
+    "buildServer": "babel lib -d dist",
+    "build:html": "cp -R src/html/ public/html/",
+    "watch:html": "nodemon -w src/html -e html -x 'npm run build:html'",
+    "build:css": "node-sass --include-path scss src/scss/style.scss public/css/main.css",
+    "watch:css": "nodemon -w src/scss -e scss -x 'npm run build:css'",
+    "build:js": "babel src -d public",
+    "watch:js": "nodemon -w src/js -x 'npm run build:js'",
+    "build:assets": "cp -R src/assets/ public/assets/",
+    "watch:assets": "onchange 'src/assets/**/*.*' -v -- npm run build:assets",
+    "build": "npm run build:html && npm run build:css && npm run build:js && npm run build:assets",
+    "watch": "parallelshell 'npm run watch:html' 'npm run watch:css' 'npm run watch:js' 'npm run watch:assets'",
+    "clean": "rm -r public/*"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.15.2"
+    "express": "^4.15.2",
+    "gify-parse": "^1.0.6"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -22,7 +34,10 @@
     "babel-preset-stage-2": "^6.24.1",
     "babel-register": "^6.24.1",
     "mocha": "^3.4.1",
-    "nodemon": "^1.11.0"
+    "node-sass": "^4.5.3",
+    "nodemon": "^1.11.0",
+    "onchange": "^3.2.1",
+    "parallelshell": "^2.0.0"
   },
   "babel": {
     "presets": [
