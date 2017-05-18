@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 
-const gifFilenames = require('../controllers/gifFilenames.controller');
+const gifInfo = require('../controllers/gifInfo.controller');
 
 router.route('/')
-  .get(gifFilenames.index);
+  .get(gifInfo.index);
 
 module.exports = router;
