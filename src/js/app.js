@@ -4,21 +4,21 @@ $(document).ready( () => {
 
   const $gifImg = $(gifImg);
 
-  let gifFilenames = [];
+  let gifInfo = [];
 
   let index = 0;                     
 
   function gifLoop() {           
     setTimeout(() => {    
-      updateGif($gifImg, gifFilenames[index]);
+      updateGif($gifImg, gifInfo[index].filename);
       index ++;          
-      if (index < gifFilenames.length) {            
+      if (index < gifInfo.length) {            
         gifLoop();           
       } else {
         index = 0;
         gifLoop();
       }
-    }, 4200);
+    }, Math.max(gifInfo[index].gifDuration * 3, 5000));
   }
 
   function updateGif($element, gifFilename) {
@@ -27,10 +27,12 @@ $(document).ready( () => {
 
   $.ajax({
     method: 'GET',
-    url: './gifFilenames'
+    url: './gifInfo'
   })
     .done(data => {
-      gifFilenames = data.gifFilenames;
+      gifInfo = data.gifInfo;
+      updateGif($gifImg, gifInfo[index].filename);
+      index ++; 
       gifLoop(); 
     });
 
