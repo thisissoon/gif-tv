@@ -34,13 +34,13 @@ function addGifDurations(directoryPath, filenames) {
   });
 }
 
-function getGifFilenames(directoryPath){
+function getGifInfo(directoryPath){
   return getFilenames(directoryPath)
     .then(filenames => filterFilenames(filenames))
     .then(gifFilenames => addGifDurations(directoryPath, gifFilenames));
 }
 
 module.exports = {
-  getGifFilenames: getGifFilenames
+  getGifInfo
 };
 
