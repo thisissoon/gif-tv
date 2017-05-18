@@ -1,8 +1,8 @@
 $(document).ready( () => {
 
-  const gif = document.getElementsByClassName('gif')[0];
+  const gifImg = document.getElementsByClassName('gif-container')[0];
 
-  const $gifImg = $('.gif-container__gif-image');
+  const $gifImg = $(gifImg);
 
   let gifFilenames = [];
 
@@ -34,9 +34,9 @@ $(document).ready( () => {
       gifLoop(); 
     });
 
-  // $gifImg.on('click', (e) => {
-  //   gif.webkitRequestFullscreen();
-  // });
+  $gifImg.on('click', (e) => {
+    e.target.webkitRequestFullscreen();
+  });
 
 
 });
