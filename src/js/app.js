@@ -4,21 +4,15 @@ $(document).ready( () => {
 
   const $gifDiv = $('.gif');
 
-  
-  const gifs = [
-    '2XN.gif',
-    '6N2Fa.gif',
-    '80dancepaty.gif'
-  ];
-
+  let gifFilenames = [];
 
   let index = 0;                     
 
   function gifLoop() {           
     setTimeout(() => {    
-      updateGif($gifDiv, gifs[index]);
+      updateGif($gifDiv, gifFilenames[index]);
       index ++;          
-      if (index < gifs.length) {            
+      if (index < gifFilenames.length) {            
         gifLoop();           
       } else {
         index = 0;
@@ -27,11 +21,18 @@ $(document).ready( () => {
     }, 3000);
   }
 
-  gifLoop();  
-
   function updateGif($element, gifFilename) {
     $element.css('background-image', `url(./assets/PARTY_GIFS/${gifFilename})`);
   }
+
+  $.ajax({
+    method: 'GET',
+    url: './gifFilenames'
+  })
+    .done(data => {
+      gifFilenames = data.gifFilenames;
+      gifLoop(); 
+    });
 
   $gifDiv.on('click', (e) => {
     gif.webkitRequestFullscreen();
