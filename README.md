@@ -41,7 +41,7 @@ $ open http://127.0.0.1:3000/
 
 - [x] Randomise gif playback
 - [x] SOON_ gif every 5th
-- [ ] Recursive search of gif folder
+- [x] Recursive search of gif folder
+- [x] Improve npm build / watch tasks
 - [ ] Next button
 - [ ] Animate between gifs
-- [ ] Improve npm build / watch tasks
