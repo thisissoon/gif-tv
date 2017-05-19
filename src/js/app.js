@@ -7,6 +7,7 @@ $(document).ready( () => {
   let gifInfo;
   const soonGif1Info = {filename: 'SOON_Logo_v4.gif', gifDuration: 9000};
   const soonGif2Info = {filename: 'Soon_3D_v1.gif', gifDuration: 4040};
+  const jackGifInfo = {filename: 'jack_gif.gif', gifDuration: 2790};
 
   $gifDiv.on('click', (e) => {
     gifDiv.webkitRequestFullscreen();
@@ -58,6 +59,7 @@ $(document).ready( () => {
       suffleArray(gifInfo);
       gifInfo = insertElement(gifInfo, 18, soonGif1Info);
       gifInfo = insertElement(gifInfo, 22, soonGif2Info);
+      gifInfo = insertElement(gifInfo, 25, jackGifInfo);
       gifStream$.subscribe((index) => {
         updateGif($gifDiv, gifInfo[index].filename);
       });
