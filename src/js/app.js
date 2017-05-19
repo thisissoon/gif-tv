@@ -6,6 +6,10 @@ $(document).ready( () => {
   const $gifDiv   = $(gifDiv);
   let gifInfo;
 
+  $gifDiv.on('click', (e) => {
+    gifDiv.webkitRequestFullscreen();
+  });
+
   function updateGif($element, gifFilename) {
     $element.css('background-image', `url(./assets/PARTY_GIFS/${gifFilename})`);
   }
@@ -35,4 +39,5 @@ $(document).ready( () => {
         updateGif($gifDiv, gifInfo[index].filename);
       });
     });
+
 });
