@@ -5,7 +5,8 @@ $(document).ready( () => {
   const gifDiv    = document.getElementsByClassName('gif-container')[0];
   const $gifDiv   = $(gifDiv);
   let gifInfo;
-  const soonGifInfo = {filename: 'SOON_Logo_v2.gif', gifDuration: 9000};
+  const soonGif1Info = {filename: 'SOON_Logo_v4.gif', gifDuration: 9000};
+  const soonGif2Info = {filename: 'Soon_3D_v1.gif', gifDuration: 4040};
 
   $gifDiv.on('click', (e) => {
     gifDiv.webkitRequestFullscreen();
@@ -23,13 +24,14 @@ $(document).ready( () => {
   }
 
   function insertElement(array, frequency, insertElement){
-    return array.map((element, index) => {
+    return array.reduce((sum, current, index) => {
       if (index % frequency === 0) {
-        return element, insertElement;
+        sum.push(current, insertElement);
       } else {
-        return element;
+        sum.push(current);
       }
-    });
+      return sum;
+    }, []);
   }
 
   function gifLoop (observer, index) {
@@ -54,8 +56,8 @@ $(document).ready( () => {
     .done(data => {
       gifInfo = data.gifInfo;
       suffleArray(gifInfo);
-      gifInfo = insertElement(gifInfo, 20, soonGifInfo);
-      console.log(gifInfo);
+      gifInfo = insertElement(gifInfo, 20, soonGif1Info);
+      gifInfo = insertElement(gifInfo, 20, soonGif2Info);
       gifStream$.subscribe((index) => {
         updateGif($gifDiv, gifInfo[index].filename);
       });
