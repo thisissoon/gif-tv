@@ -34,7 +34,13 @@ $(document).ready( () => {
     url: './gifInfo'
   })
     .done(data => {
-      gifInfo = data.gifInfo;
+      // gifInfo = data.gifInfo;
+      gifInfo = [
+        {
+          'filename': 'SOON_/Logo_v2.gif',
+          'gifDuration': 1350
+        }
+      ];
       gifStream$.subscribe((index) => {
         updateGif($gifDiv, gifInfo[index].filename);
       });
