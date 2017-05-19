@@ -5,6 +5,10 @@ A simple express web server and jQuery Frontend for looping through a folder of 
 
 Project used as a learning tool for npm as a task runner, JS Promises (backend) and RxJS Observables (frontend).
 
+## Copy Gifs Into PARTY_GIFS
+
+Gif must be copied into `src/assets/PARTY_GIFS`
+
 ## Install Prerequisites
 
 ```shell
@@ -39,9 +43,9 @@ $ open http://127.0.0.1:3000/
 
 ## Task List
 
-- [ ] Randomise gif playback
-- [ ] SOON_ gif every 5th
-- [ ] Recursive search of gif folder
+- [x] Randomise gif playback
+- [x] SOON_ gif every 5th
+- [x] Recursive search of gif folder
+- [x] Improve npm build / watch tasks
 - [ ] Next button
 - [ ] Animate between gifs
-- [ ] Improve npm build / watch tasks

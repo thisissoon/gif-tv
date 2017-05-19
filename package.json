@@ -13,10 +13,11 @@
     "watch:js": "nodemon -w src/js -x 'npm run build:js'",
     "build:assets": "cp -R src/assets/ public/assets/",
     "watch:assets": "onchange 'src/assets/**/*.*' -v -- npm run build:assets",
-    "build": "npm run build:html && npm run build:css && npm run build:js && npm run build:assets",
+    "build:dirTree": "cd src && find . -type d -exec mkdir -p -- ../public/{} \\; && mv ../public/scss ../public/css",
+    "build": "npm run clean && npm run build:dirTree && npm run build:html && npm run build:css && npm run build:js && npm run build:assets",
     "watch": "parallelshell 'npm run watch:html' 'npm run watch:css' 'npm run watch:js' 'npm run watch:assets'",
     "serve": "nodemon server.js",
-    "clean": "rm -r public/*"
+    "clean": "rm -rf public/"
   },
   "author": "",
   "license": "ISC",
