@@ -5,7 +5,7 @@ $(document).ready( () => {
   const gifDiv    = document.getElementsByClassName('gif-container')[0];
   const $gifDiv   = $(gifDiv);
   let gifInfo;
-  const soonGifInfo = {filename: 'SOON_/Logo_v2.gif', gifDuration: 9000};
+  const soonGifInfo = {filename: 'SOON_Logo_v2.gif', gifDuration: 9000};
 
   $gifDiv.on('click', (e) => {
     gifDiv.webkitRequestFullscreen();

@@ -39,8 +39,8 @@ $ open http://127.0.0.1:3000/
 
 ## Task List
 
-- [ ] Randomise gif playback
-- [ ] SOON_ gif every 5th
+- [x] Randomise gif playback
+- [x] SOON_ gif every 5th
 - [ ] Recursive search of gif folder
 - [ ] Next button
 - [ ] Animate between gifs
