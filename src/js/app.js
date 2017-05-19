@@ -56,8 +56,8 @@ $(document).ready( () => {
     .done(data => {
       gifInfo = data.gifInfo;
       suffleArray(gifInfo);
-      gifInfo = insertElement(gifInfo, 20, soonGif1Info);
-      gifInfo = insertElement(gifInfo, 20, soonGif2Info);
+      gifInfo = insertElement(gifInfo, 18, soonGif1Info);
+      gifInfo = insertElement(gifInfo, 22, soonGif2Info);
       gifStream$.subscribe((index) => {
         updateGif($gifDiv, gifInfo[index].filename);
       });
