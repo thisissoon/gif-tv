@@ -1,107 +1,37 @@
-var Rx;
+document.addEventListener('DOMContentLoaded', () => {
 
-function GifTV(config){
-
-  this.regularGifs = config.regularGifInfo;
-  this.gifDiv = config.targetElement;
-  this.gifInfoArray = config.gifInfoArray;
-  const _this = this;
-
-  function updateGif(element, gifFilename) {
-    element.setAttribute('style', `background-image: url(./assets/PARTY_GIFS/${gifFilename})`);
-  }
-
-  function suffleArray(array) {
-    for (let i = array.length; i; i--) {
-      const randomIndex = Math.floor(Math.random() * i);
-      [array[i - 1], array[randomIndex]] = [array[randomIndex], array[i - 1]];
+  const gifElement    = document.getElementsByClassName('gif-container')[0];
+  const regularGifInfo = [
+    {
+      filename: 'SOON_Logo_v2.gif',
+      frequency: 20
+    },
+    {
+      filename: 'jack_gif.gif',
+      frequency: 10
     }
-  }
+  ];
 
-  function insertElement(array, frequency, insertElement){
-    return array.reduce((acc, current, index) => {
-      if (index % frequency === 0) {
-        acc.push(current,insertElement);
-        return acc;
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', './gifInfo');
+  xhr.responseType = 'json';
+  xhr.send(null);
+
+  xhr.onreadystatechange = function () {
+    const DONE = 4;
+    const OK = 200;
+    if (xhr.readyState === DONE) {
+      if (xhr.status === OK) {
+        const gifTV = new GifTv({
+          regularGifInfo,
+          targetElement: gifElement,
+          gifInfoArray: xhr.response.gifInfo
+        });
+        gifTV.init();
       } else {
-        acc.push(current);
-        return acc;
+        console.log('Error: ' + xhr.status);
       }
-    }, []);
-  }
-
-  function gifLoop (observer, index) {
-    observer.next(index);
-    setTimeout(() => {
-      if (index < _this.gifInfoArray.length -1) {
-        gifLoop(observer, ++index);
-      } else {
-        gifLoop(observer, 0);
-      }
-    }, Math.max(_this.gifInfoArray[index].gifDuration * 3, 5000));
-  }
-
-  function insertRegularGifs(gifInfoArray, regularGifs){
-    for (const regularGif of regularGifs) {
-      gifInfoArray = insertElement(gifInfoArray, regularGif.frequency, {filename: regularGif.filename, gifDuration: regularGif.gifDuration});
     }
-    return gifInfoArray;
-  }
-
-  function insertDurations(gifInfoArray, regularGifs){
-    return regularGifs.map((gif) => {
-      var duration;
-      for (const gifInfo of gifInfoArray) {
-        if (gifInfo.filename === gif.filename) {
-          duration = gifInfo.gifDuration;
-        }
-      }
-      return {
-        filename: gif.filename,
-        gifDuration: duration,
-        frequency: gif.frequency
-      };
-    });
-  }
-
-  this.init = function(){
-    this.gifStream$ = Rx.Observable.create(observer => {
-      gifLoop(observer, 0);
-    });
-    suffleArray(this.gifInfoArray);
-    this.regularGifs = insertDurations(this.gifInfoArray, this.regularGifs);
-    this.gifInfoArray = insertRegularGifs(this.gifInfoArray, this.regularGifs);
-    this.gifStream$.subscribe((index) => {
-      updateGif(this.gifDiv, this.gifInfoArray[index].filename);
-    });
   };
-  
-}
-
-$(document).ready( () => {
-
-  const gifDiv    = document.getElementsByClassName('gif-container')[0];
-
-  $.ajax({
-    method: 'GET',
-    url: './gifInfo'
-  })
-    .done(data => {
-      var gifTV = new GifTV({
-        regularGifInfo: [
-          {
-            filename: 'SOON_Logo_v2.gif',
-            frequency: 20
-          },
-          {
-            filename: 'jack_gif.gif',
-            frequency: 10
-          }
-        ],
-        targetElement: gifDiv,
-        gifInfoArray: data.gifInfo
-      });
-      gifTV.init();
-    });
 
 });
