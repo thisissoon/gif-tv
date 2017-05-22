@@ -7,13 +7,13 @@ Project used as a learning tool for npm as a task runner, JS Promises and RxJS O
 
 ##Setup
 
-###1. Install Prerequisites
+### 1. Install Prerequisites
 
 ```shell
 $ npm i
 ```
 
-###2. Build Site
+### 2. Build Site
 
 ```shell
 $ npm run build
@@ -21,17 +21,17 @@ $ npm run build
 
 The site will be generated in the `public` directory.
 
-###3. Watch For Frontend Changes
+### 3. Watch For Frontend Changes
 
 ```shell
 $ npm run watch
 ```
 
-###4. Copy Gifs Into GIFS/
+### 4. Copy Gifs Into GIFS/
 
 Gifs must be copied into `src/assets/GIFS`
 
-###5. Configure Regular Gifs
+### 5. Configure Regular Gifs
 
 In the app.js file configure the filenames and frequencies of the gifs you would like to appear on a regular basis.
 
@@ -48,7 +48,7 @@ In the app.js file configure the filenames and frequencies of the gifs you would
   ];
 ```
 
-###6. Spin Up Server
+### 6. Spin Up Server
 
 ```shell
 $ npm run serve
