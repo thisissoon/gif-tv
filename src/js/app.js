@@ -1,70 +1,43 @@
-var Rx;
+document.addEventListener('DOMContentLoaded', () => {
 
-$(document).ready( () => {
-
-  const gifDiv    = document.getElementsByClassName('gif-container')[0];
-  const $gifDiv   = $(gifDiv);
-  let gifInfo;
-  const soonGif1Info = {filename: 'SOON_Logo_v4.gif', gifDuration: 9000};
-  const soonGif2Info = {filename: 'Soon_3D_v1.gif', gifDuration: 4040};
-  const jackGifInfo = {filename: 'jack_gif.gif', gifDuration: 2790};
-  const girldemGifInfo = {filename: 'girldem.gif', gifDuration: 1540};
-
-  $gifDiv.on('click', (e) => {
-    gifDiv.webkitRequestFullscreen();
-  });
-
-  function updateGif($element, gifFilename) {
-    $element.css('background-image', `url(./assets/PARTY_GIFS/${gifFilename})`);
-  }
-
-  function suffleArray(array) {
-    for (let i = array.length; i; i--) {
-      const randomIndex = Math.floor(Math.random() * i);
-      [array[i - 1], array[randomIndex]] = [array[randomIndex], array[i - 1]];
+  // DOM element selected
+  const gifElement    = document.getElementsByClassName('gif-container')[0];
+  
+  // Specify gifs to be repeated 
+  const regularGifsInfo = [
+    {
+      filename: 'SOON_Logo_v2.gif',
+      frequency: 20
+    },
+    {
+      filename: 'jack.gif',
+      frequency: 10
     }
-  }
+  ];
 
-  function insertElement(array, frequency, insertElement){
-    return array.reduce((sum, current, index) => {
-      if (index % frequency === 0) {
-        sum.push(current, insertElement);
+  // Make AJAX request for gifInfoArray.
+  // On response create gifTv instance from GifTv constructor function
+  // and initiate the start of the gif loop. 
+  const xhr = new XMLHttpRequest();
+  xhr.open('GET', './gifInfo');
+  xhr.responseType = 'json';
+  xhr.send(null);
+
+  xhr.onreadystatechange = function () {
+    const DONE = 4;
+    const OK = 200;
+    if (xhr.readyState === DONE) {
+      if (xhr.status === OK) {
+        const gifTV = new GifTv({
+          regularGifsInfo: regularGifsInfo,
+          targetElement: gifElement,
+          gifInfoArray: xhr.response.gifInfo
+        });
+        gifTV.init();
       } else {
-        sum.push(current);
+        console.log('Error: ' + xhr.status);
       }
-      return sum;
-    }, []);
-  }
-
-  function gifLoop (observer, index) {
-    observer.next(index);
-    setTimeout(() => {
-      if (index < gifInfo.length -1) {
-        gifLoop(observer, ++index);
-      } else {
-        gifLoop(observer, 0);
-      }
-    }, Math.max(gifInfo[index].gifDuration * 3, 5000));
-  }
-
-  const gifStream$ = Rx.Observable.create(observer => {
-    gifLoop(observer, 0);
-  });
-
-  $.ajax({
-    method: 'GET',
-    url: './gifInfo'
-  })
-    .done(data => {
-      gifInfo = data.gifInfo;
-      suffleArray(gifInfo);
-      gifInfo = insertElement(gifInfo, 18, soonGif1Info);
-      gifInfo = insertElement(gifInfo, 22, soonGif2Info);
-      gifInfo = insertElement(gifInfo, 40, jackGifInfo);
-      gifInfo = insertElement(gifInfo, 30, girldemGifInfo);
-      gifStream$.subscribe((index) => {
-        updateGif($gifDiv, gifInfo[index].filename);
-      });
-    });
+    }
+  };
 
 });
