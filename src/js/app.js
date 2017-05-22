@@ -1,18 +1,14 @@
 var Rx;
 
-$(document).ready( () => {
+function GifTV(config){
 
-  const gifDiv    = document.getElementsByClassName('gif-container')[0];
-  const $gifDiv   = $(gifDiv);
-  let gifInfo;
-  const soonGifInfo = {filename: 'SOON_Logo_v2.gif', gifDuration: 9000};
+  this.regularGifs = config.regularGifInfo;
+  this.gifDiv = config.targetElement;
+  this.gifInfoArray = config.gifInfoArray;
+  const _this = this;
 
-  $gifDiv.on('click', (e) => {
-    gifDiv.webkitRequestFullscreen();
-  });
-
-  function updateGif($element, gifFilename) {
-    $element.css('background-image', `url(./assets/PARTY_GIFS/${gifFilename})`);
+  function updateGif(element, gifFilename) {
+    element.setAttribute('style', `background-image: url(./assets/PARTY_GIFS/${gifFilename})`);
   }
 
   function suffleArray(array) {
@@ -23,42 +19,89 @@ $(document).ready( () => {
   }
 
   function insertElement(array, frequency, insertElement){
-    return array.map((element, index) => {
+    return array.reduce((acc, current, index) => {
       if (index % frequency === 0) {
-        return element, insertElement;
+        acc.push(current,insertElement);
+        return acc;
       } else {
-        return element;
+        acc.push(current);
+        return acc;
       }
-    });
+    }, []);
   }
 
   function gifLoop (observer, index) {
     observer.next(index);
     setTimeout(() => {
-      if (index < gifInfo.length -1) {
+      if (index < _this.gifInfoArray.length -1) {
         gifLoop(observer, ++index);
       } else {
         gifLoop(observer, 0);
       }
-    }, Math.max(gifInfo[index].gifDuration * 3, 5000));
+    }, Math.max(_this.gifInfoArray[index].gifDuration * 3, 5000));
   }
 
-  const gifStream$ = Rx.Observable.create(observer => {
-    gifLoop(observer, 0);
-  });
+  function insertRegularGifs(gifInfoArray, regularGifs){
+    for (const regularGif of regularGifs) {
+      gifInfoArray = insertElement(gifInfoArray, regularGif.frequency, {filename: regularGif.filename, gifDuration: regularGif.gifDuration});
+    }
+    return gifInfoArray;
+  }
+
+  function insertDurations(gifInfoArray, regularGifs){
+    return regularGifs.map((gif) => {
+      var duration;
+      for (const gifInfo of gifInfoArray) {
+        if (gifInfo.filename === gif.filename) {
+          duration = gifInfo.gifDuration;
+        }
+      }
+      return {
+        filename: gif.filename,
+        gifDuration: duration,
+        frequency: gif.frequency
+      };
+    });
+  }
+
+  this.init = function(){
+    this.gifStream$ = Rx.Observable.create(observer => {
+      gifLoop(observer, 0);
+    });
+    suffleArray(this.gifInfoArray);
+    this.regularGifs = insertDurations(this.gifInfoArray, this.regularGifs);
+    this.gifInfoArray = insertRegularGifs(this.gifInfoArray, this.regularGifs);
+    this.gifStream$.subscribe((index) => {
+      updateGif(this.gifDiv, this.gifInfoArray[index].filename);
+    });
+  };
+  
+}
+
+$(document).ready( () => {
+
+  const gifDiv    = document.getElementsByClassName('gif-container')[0];
 
   $.ajax({
     method: 'GET',
     url: './gifInfo'
   })
     .done(data => {
-      gifInfo = data.gifInfo;
-      suffleArray(gifInfo);
-      gifInfo = insertElement(gifInfo, 20, soonGifInfo);
-      console.log(gifInfo);
-      gifStream$.subscribe((index) => {
-        updateGif($gifDiv, gifInfo[index].filename);
+      var gifTV = new GifTV({
+        regularGifInfo: [
+          {
+            filename: 'SOON_Logo_v2.gif',
+            frequency: 20
+          },
+          {
+            filename: 'jack_gif.gif',
+            frequency: 10
+          }
+        ],
+        targetElement: gifDiv,
+        gifInfoArray: data.gifInfo
       });
+      gifTV.init();
     });
 
 });
