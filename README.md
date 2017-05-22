@@ -5,7 +5,7 @@ A simple Express web server with a vanilla JS and RxJS Frontend for sequentially
 
 Project used as a learning tool for npm as a task runner, JS Promises and RxJS Observables.
 
-##Setup
+## Setup
 
 ### 1. Install Prerequisites
 
