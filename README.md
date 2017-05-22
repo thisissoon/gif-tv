@@ -1,21 +1,19 @@
 
 # GIF TV - Express web app
 
-A simple express web server and jQuery Frontend for looping through a folder of gifs and displaying it's contents.
+A simple Express web server with a vanilla JS and RxJS Frontend for sequentially displaying a collection of gifs.
 
-Project used as a learning tool for npm as a task runner, JS Promises (backend) and RxJS Observables (frontend).
+Project used as a learning tool for npm as a task runner, JS Promises and RxJS Observables.
 
-## Copy Gifs Into GIFS
+##Setup
 
-Gif must be copied into `src/assets/GIFS`
-
-## Install Prerequisites
+###1. Install Prerequisites
 
 ```shell
 $ npm i
 ```
 
-## Build Site
+###2. Build Site
 
 ```shell
 $ npm run build
@@ -23,13 +21,34 @@ $ npm run build
 
 The site will be generated in the `public` directory.
 
-## Watch For Frontend Changes
+###3. Watch For Frontend Changes
 
 ```shell
 $ npm run watch
 ```
 
-## Spin Up Server
+###4. Copy Gifs Into GIFS/
+
+Gifs must be copied into `src/assets/GIFS`
+
+###5. Configure Regular Gifs
+
+In the app.js file configure the filenames and frequencies of the gifs you would like to appear on a regular basis.
+
+```js
+  const regularGifsInfo = [
+    {
+      filename: 'SOON_Logo_v2.gif',
+      frequency: 20
+    },
+    {
+      filename: 'jack.gif',
+      frequency: 10
+    }
+  ];
+```
+
+###6. Spin Up Server
 
 ```shell
 $ npm run serve
