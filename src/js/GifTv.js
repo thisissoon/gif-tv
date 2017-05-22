@@ -5,29 +5,6 @@ function GifTv(config){
   this.gifInfoArray = config.gifInfoArray;
   const _this = this;
 
-  function updateGif(element, gifFilename) {
-    element.setAttribute('style', `background-image: url(./assets/GIFS/${gifFilename})`);
-  }
-
-  function suffleArray(array) {
-    for (let i = array.length; i; i--) {
-      const randomIndex = Math.floor(Math.random() * i);
-      [array[i - 1], array[randomIndex]] = [array[randomIndex], array[i - 1]];
-    }
-  }
-
-  function insertElement(array, frequency, insertElement){
-    return array.reduce((acc, current, index) => {
-      if (index % frequency === 0) {
-        acc.push(current,insertElement);
-        return acc;
-      } else {
-        acc.push(current);
-        return acc;
-      }
-    }, []);
-  }
-
   function gifLoop (observer, index) {
     observer.next(index);
     setTimeout(() => {
@@ -39,11 +16,11 @@ function GifTv(config){
     }, Math.max(_this.gifInfoArray[index].gifDuration * 3, 5000));
   }
 
-  function insertRegularGifs(gifInfoArray, regularGifs){
-    for (const regularGif of regularGifs) {
-      gifInfoArray = insertElement(gifInfoArray, regularGif.frequency, {filename: regularGif.filename, gifDuration: regularGif.gifDuration});
+  function suffleArray(array) {
+    for (let i = array.length; i; i--) {
+      const randomIndex = Math.floor(Math.random() * i);
+      [array[i - 1], array[randomIndex]] = [array[randomIndex], array[i - 1]];
     }
-    return gifInfoArray;
   }
 
   function insertDurations(gifInfoArray, regularGifs){
@@ -60,6 +37,29 @@ function GifTv(config){
         frequency: gif.frequency
       };
     });
+  }
+
+  function insertRegularGifs(gifInfoArray, regularGifs){
+    for (const regularGif of regularGifs) {
+      gifInfoArray = insertElement(gifInfoArray, regularGif.frequency, {filename: regularGif.filename, gifDuration: regularGif.gifDuration});
+    }
+    return gifInfoArray;
+  }
+
+  function insertElement(array, frequency, insertElement){
+    return array.reduce((acc, current, index) => {
+      if (index % frequency === 0) {
+        acc.push(current,insertElement);
+        return acc;
+      } else {
+        acc.push(current);
+        return acc;
+      }
+    }, []);
+  }
+
+  function updateGif(element, gifFilename) {
+    element.setAttribute('style', `background-image: url(./assets/GIFS/${gifFilename})`);
   }
 
   this.init = function(){
