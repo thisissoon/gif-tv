@@ -2,18 +2,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // DOM element selected
   const gifElement    = document.getElementsByClassName('gif-container')[0];
-  
-  // Specify gifs to be repeated 
-  // const regularGifsInfo = [
-  //   {
-  //     filename: 'SOON_Logo_v4.gif',
-  //     frequency: 2
-  //   },
-  //   {
-  //     filename: 'Soon_3D_v1.gif',
-  //     frequency: 3
-  //   }
-  // ];
 
   // Make AJAX request for gifInfoArray.
   // On response create gifTv instance from GifTv constructor function

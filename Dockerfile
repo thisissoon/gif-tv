@@ -19,6 +19,9 @@ RUN PATH=$PATH:$(npm bin) npm run build
 # Create volume for mounting gifs
 VOLUME /src/app/public/assets/GIFS
 
+# Create volume for mounting regularGifsInfo config options
+VOLUME /src/app/config/regularGifsInfo.JSON
+
 # Expose port
 EXPOSE 3000
 
