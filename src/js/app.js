@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', () => {
   // Specify gifs to be repeated 
   const regularGifsInfo = [
     {
-      filename: 'SOON_Logo_v2.gif',
-      frequency: 20
+      filename: 'SOON_Logo_v4.gif',
+      frequency: 2
     },
     {
-      filename: 'jack.gif',
-      frequency: 10
+      filename: 'Soon_3D_v1.gif',
+      frequency: 3
     }
   ];
 
