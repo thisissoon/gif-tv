@@ -4,16 +4,16 @@ document.addEventListener('DOMContentLoaded', () => {
   const gifElement    = document.getElementsByClassName('gif-container')[0];
   
   // Specify gifs to be repeated 
-  const regularGifsInfo = [
-    {
-      filename: 'SOON_Logo_v4.gif',
-      frequency: 2
-    },
-    {
-      filename: 'Soon_3D_v1.gif',
-      frequency: 3
-    }
-  ];
+  // const regularGifsInfo = [
+  //   {
+  //     filename: 'SOON_Logo_v4.gif',
+  //     frequency: 2
+  //   },
+  //   {
+  //     filename: 'Soon_3D_v1.gif',
+  //     frequency: 3
+  //   }
+  // ];
 
   // Make AJAX request for gifInfoArray.
   // On response create gifTv instance from GifTv constructor function
@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     if (xhr.readyState === DONE) {
       if (xhr.status === OK) {
         const gifTV = new GifTv({
-          regularGifsInfo: regularGifsInfo,
+          regularGifsInfo: xhr.response.regularGifsInfo,
           targetElement: gifElement,
           gifInfoArray: xhr.response.gifInfo
         });
