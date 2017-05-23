@@ -5,7 +5,6 @@ var regularGifsInfo = JSON.parse(fs.readFileSync(`${__dirname}/../config/regular
 function gifInfoIndex(req, res) {
   GifInfo.getGifInfo('./public/assets/GIFS/')
     .then((gifInfo) => {
-      console.log(regularGifsInfo);
       return res.status(200).json({message: 'gifInfo endpoint', gifInfo, regularGifsInfo });
     });
 }
