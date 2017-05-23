@@ -15,3 +15,9 @@ COPY . /src/app
 
 # Build
 RUN PATH=$PATH:$(npm bin) npm run build
+
+# Expose port
+EXPOSE 3000
+
+# Default entrypoint arguments
+CMD ["npm", "run", "serve"]
