@@ -1,7 +1,7 @@
 
 # GIF TV - Express web app
 
-A simple Express web server with a vanilla JS and RxJS Frontend for sequentially displaying a collection of gifs. Gifs from the collection can also be configured to reappear every x gifs (for example a logo).
+A simple Express web server with a vanilla JS and RxJS Frontend for sequentially displaying a collection of gifs. Gifs from the collection can also be configured to reappear every *x* gifs (for example a logo).
 
 This project was used as a learning tool for npm as a task runner, JS Promises, RxJS Observables, JS Classes Vs Generator functions and Docker.
 
