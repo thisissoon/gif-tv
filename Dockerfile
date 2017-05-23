@@ -3,7 +3,7 @@
 #
 
 # Pull node base image
-FROM mhart/alpine-node:7.4
+FROM mhart/alpine-node:7.9
 
 # Install dependencies
 COPY package.json /src/app/package.json
@@ -18,9 +18,6 @@ RUN PATH=$PATH:$(npm bin) npm run build
 
 # Create volume for mounting gifs
 VOLUME /src/app/public/assets/GIFS
-
-# Create volume for mounting regularGifsInfo config options
-VOLUME /src/app/config/regularGifsInfo.JSON
 
 # Expose port
 EXPOSE 3000
