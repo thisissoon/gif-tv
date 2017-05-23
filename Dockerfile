@@ -16,6 +16,9 @@ COPY . /src/app
 # Build
 RUN PATH=$PATH:$(npm bin) npm run build
 
+# Create volume for mounting gifs
+VOLUME /src/app/public/assets/GIFS
+
 # Expose port
 EXPOSE 3000
 
