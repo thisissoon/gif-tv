@@ -39,6 +39,12 @@ Note that the JSON file for the repeating gifs (called regularGifs within gif-tv
   }]
 ```
 
+### 3. Access The Server
+
+```shell
+$ open http://127.0.0.1:[PORT SELECTED IN DOCKER RUN COMMAND]/
+```
+
 ## Local Development Setup
 
 ### 1. Install Prerequisites
